@@ -19,6 +19,11 @@ public class TestsWithAddingProducts extends TestBase {
     PlacingAnOrderPage placingAnOrderPage = new PlacingAnOrderPage();
     RandomUtils random = new RandomUtils();
     CredentialConfig credentialConfig = ConfigFactory.create(CredentialConfig.class);
+    String fieldNames = "Товар";
+    String productName = "Apple Watch 6";
+    String cartSubtotal = "Subtotal:";
+    String paymentMethod = "Payment method:";
+    String total = "Total:";
 
     @BeforeEach
     public void loginToAccount() {
@@ -162,7 +167,13 @@ public class TestsWithAddingProducts extends TestBase {
         step("Проверяем, что присутствует окно с заказом", () -> {
             placingAnOrderPage.orderOverview();
         });
-
+        step("Проверяем поля в итоговой таблице", () -> {
+            placingAnOrderPage.checkResult(fieldNames, "Сумма")
+                    .checkResult(productName, "Apple Watch 6 × 1")
+                    .checkResult(cartSubtotal, "35990,00₽")
+                    .checkResult(paymentMethod, "Прямой банковский перевод")
+                    .checkResult(total, "35990,00₽");
+        });
     }
 
 }

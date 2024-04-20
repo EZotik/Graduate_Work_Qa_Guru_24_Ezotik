@@ -73,7 +73,7 @@ public class TestRegistrationForm extends TestBase{
             myAccount.postTitle("Мой аккаунт");
         });
         step("В личном кабинете  присутствует наименование пользователя", () -> {
-            myAccount.loginName("Test1239");
+            myAccount.loginName(credentialConfig.loginUserName());
         });
     }
 }

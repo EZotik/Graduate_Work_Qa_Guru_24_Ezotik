@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.ResultComponent;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -18,6 +19,7 @@ public class PlacingAnOrderPage {
             placeOrder = $("#place_order"),
             contentInner = $(".content-inner.clearfix h2"),
             orderOverview = $(".woocommerce-order-overview.woocommerce-thankyou-order-details.order_details");
+    ResultComponent resultComponent = new ResultComponent();
 
     public PlacingAnOrderPage placingAnOrder() {
         placingAnOrder.click();
@@ -61,6 +63,11 @@ public class PlacingAnOrderPage {
     }
     public PlacingAnOrderPage orderOverview () {
         orderOverview.shouldBe(visible);
+        return this;
+    }
+
+    public PlacingAnOrderPage checkResult(String key, String value){
+        resultComponent.checkResult(key, value);
         return this;
     }
 }
