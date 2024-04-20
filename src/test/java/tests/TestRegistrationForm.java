@@ -12,7 +12,7 @@ import static io.qameta.allure.Allure.step;
 
 @Tag("simple_test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DisplayName("Тесты на регистрация/авторизация пользователя")
+@DisplayName("Тесты на регистрацию/авторизацию пользователя")
 public class TestRegistrationForm extends TestBase{
     RegistrationPage registrationPage = new RegistrationPage();
     MyAccount myAccount = new MyAccount();
