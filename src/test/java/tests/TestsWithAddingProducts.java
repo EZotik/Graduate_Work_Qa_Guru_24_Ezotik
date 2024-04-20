@@ -11,6 +11,7 @@ import static io.qameta.allure.Allure.step;
 
 @Tag("simple_test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayName("Тесты на работу с корзиной товара")
 public class TestsWithAddingProducts extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     MyAccount myAccount = new MyAccount();
