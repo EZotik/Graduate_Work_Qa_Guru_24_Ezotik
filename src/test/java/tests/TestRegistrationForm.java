@@ -10,8 +10,8 @@ import utils.RandomUtils;
 
 import static io.qameta.allure.Allure.step;
 
+@Tag("simple_test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
 public class TestRegistrationForm extends TestBase{
     RegistrationPage registrationPage = new RegistrationPage();
     MyAccount myAccount = new MyAccount();
