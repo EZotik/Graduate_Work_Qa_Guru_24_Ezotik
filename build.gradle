@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group = 'qa.qury'
+version = '1.0-SNAPSHOT'
+
+allure{
+    report {
+        version.set('2.25.0')
+    }
+    adapter { //отвечает за появление папки allure-results
+        aspectjWeaver.set(true) //обработка аннотации @Step
+        frameworks {
+            junit5 { //название фрэймворка
+                adapterVersion.set('2.25.0') //версия интеграции фрэймворка и Allure
+            }
+        }
+    }
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+dependencies {
+    testImplementation("com.github.javafaker:javafaker:1.0.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testImplementation("com.codeborne:selenide:6.19.1")
+    testImplementation 'io.qameta.allure:allure-selenide:2.25.0'
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
