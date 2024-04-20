@@ -13,7 +13,6 @@ import static io.qameta.allure.Allure.step;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Тесты на работу с корзиной товаров")
 public class TestsWithAddingProducts extends TestBase {
-    RegistrationPage registrationPage = new RegistrationPage();
     MyAccount myAccount = new MyAccount();
     HomePage homePage = new HomePage();
     CatalogPage catalogPage = new CatalogPage();
