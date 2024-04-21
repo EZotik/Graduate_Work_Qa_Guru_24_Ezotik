@@ -2,6 +2,7 @@
 <p align="center">
 <img title="TOnline-store-Skillbox" src="media/images/Online-store-Skillbox-screenshot.JPG">
 </p>
+
 ## :scroll: Содержание
 
 - [Используемый стек](#computer-используемый-стек)
