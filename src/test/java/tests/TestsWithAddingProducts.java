@@ -94,7 +94,7 @@ public class TestsWithAddingProducts extends TestBase {
     @Test
     @Order(5)
     @Feature("Корзина товаров")
-    @DisplayName("Применение купона")
+    @DisplayName("Применение неверного купона")
     void applyingCouponTest() {
         step("Переходим в корзину товаров", () -> {
             catalogPage.openPage();
