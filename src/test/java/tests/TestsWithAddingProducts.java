@@ -122,7 +122,6 @@ public class TestsWithAddingProducts extends TestBase {
     @ParameterizedTest(name = "Для поискового запроса с {0} должен отдаваться не пустой список карточек" )
     @Order(6)
     @Feature("Главная страница")
-    @DisplayName("Поиск товара из строки поиска")
     void searchFromSearchBarTest(String searchQuery) {
         step("В поле для поиска вводим наименование товара", () -> {
             homePage.searchField(searchQuery);
