@@ -52,3 +52,45 @@
 - [x] КОРЗИНА. Применение неверного купона на скидку;
 - [x] ОФОРМЛЕНИЕ ЗАКАЗА. Оформление заказ.
 
+## :arrow_forward: Запуск автотестов
+
+### Запуск тестов из терминала (с параметрами по умолчанию)
+```
+gradle clean simple_test
+```
+### Запуск тестов на удаленном браузере
+```
+gradle clean test -Denv=master
+```
+При необходимости также можно переопределить параметры запуска
+
+```
+clean
+${TASK}
+-Denv=${ENV}
+-DbrowserName=${BROWSER.NAME}
+-DbrowserVersion=${BROWSER.VERSION}
+-DbrowserSize=${BROWSER.SIZE}
+```
+
+### Параметры сборки
+
+* <code>TASK</code> – наименование задачи для запуска автотестов. По-умолчанию - <code>simple_test</code>.
+* <code>ENV</code> – загружает конфигурационный файл удалённого запуска, активирующий дополнительные настройки автотестов, которые не используются при локальном запуске.
+* <code>BROWSER.NAME</code> – браузер, в котором будут выполняться тесты. По-умолчанию - <code>chrome</code>.
+* <code>BROWSER.VERSION</code> – версия браузера, в которой будут выполняться тесты. По-умолчанию - <code>100.0</code>.
+* <code>BROWSER.SIZE</code> – размер окна браузера, в котором будут выполняться тесты.
+
+## <img width="4%" style="vertical-align:middle" title="Jenkins" src="media/logos/Jenkins.svg"> [Сборка](https://jenkins.autotests.cloud/job/C24-MolokoVelosiped-ibs-ui-tests/) в Jenkins
+
+Для запуска сборки необходимо перейти в раздел <code>Build with parameters</code> и нажать кнопку <code>Build</code>.
+<p align="center">
+<img title="Сборка в Jenkins" src="media/images/Jenkins.JPG">
+</p>
+После выполнения сборки, в блоке <code>Build History</code> напротив номера сборки появятся значки <code>Allure Report</code> и <code>Allure TestOps</code>, при клике на которые откроется страница с html-отчетом и тестовой документацией.
+
+## <img width="4%" style="vertical-align:middle" title="Allure Report" src="media/logos/AllureReport.svg"> [Пример](https://jenkins.autotests.cloud/job/C24-MolokoVelosiped-ibs-ui-tests/allure/) Allure-отчёта
+
+
+
+
