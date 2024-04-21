@@ -4,9 +4,12 @@ import config.CredentialConfig;
 import io.qameta.allure.Feature;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
 import utils.RandomUtils;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static io.qameta.allure.Allure.step;
 
 @Tag("simple_test")
@@ -113,19 +116,22 @@ public class TestsWithAddingProducts extends TestBase {
         });
     }
 
-    @Test
+    @ValueSource(strings ={
+            "Телефон", "Часы"
+    })
+    @ParameterizedTest(name = "Для поискового запроса с {0} должен отдаваться не пустой список карточек" )
     @Order(6)
     @Feature("Главная страница")
     @DisplayName("Поиск товара из строки поиска")
-    void searchFromSearchBarTest() {
+    void searchFromSearchBarTest(String searchQuery) {
         step("В поле для поиска вводим наименование товара", () -> {
-            homePage.searchField("Телефон");
+            homePage.searchField(searchQuery);
         });
         step("Проверяем, что открылась страница с результатами введенного поиска", () -> {
-            homePage.searchResults("Результаты поиска: “Телефон”");
+            homePage.searchResults("Результаты поиска: " + searchQuery);
         });
         step("На странице присутствует требуемый товар", () -> {
-            homePage.searchTitle("Телефон iPhone 13");
+            homePage.searchTitle(sizeGreaterThan(0));
         });
     }
 
