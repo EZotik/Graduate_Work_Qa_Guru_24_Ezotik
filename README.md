@@ -124,7 +124,7 @@ ${TASK}
 <img title="Дэшборд Allure TestOps" src="media/images/TestOpsDashboard.png">
 </p>
 
-### Тест-кейс, сгенерированный из автотеста
+### Тест-кейсы, сгенерированный из автотеста
 
 <p align="center">
 <img title="Результаты теста в Allure TestOps №1" src="media/images/TestOpsResults1.png">
