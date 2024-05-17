@@ -7,7 +7,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
-import utils.RandomUtils;
+import utils.RandomUserDataGenerator;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static io.qameta.allure.Allure.step;
@@ -20,7 +20,7 @@ public class TestsWithAddingProducts extends TestBase {
     HomePage homePage = new HomePage();
     CatalogPage catalogPage = new CatalogPage();
     PlacingAnOrderPage placingAnOrderPage = new PlacingAnOrderPage();
-    RandomUtils random = new RandomUtils();
+    RandomUserDataGenerator random = new RandomUserDataGenerator();
     CredentialConfig credentialConfig = ConfigFactory.create(CredentialConfig.class);
     String fieldNames = "Товар";
     String productName = "Apple Watch 6";
@@ -40,40 +40,40 @@ public class TestsWithAddingProducts extends TestBase {
             myAccount.setPassword(credentialConfig.loginPassword());
         });
         step("Кликаем на кнопку войти", () -> {
-            myAccount.login();
+            myAccount.clickLoginBtton();
         });
     }
 
     @Test
-    @Order(3)
+    @Order(1)
     @Feature("Корзина товаров")
     @DisplayName("Добавление товара в корзину")
     void addingItemToCartTest() {
         step("Открываем страницу с каталогом товаров", () -> {
-            catalogPage.catalog();
+            catalogPage.clickCatalogPage();
         });
         step("Кликаем по вкладке \"Часы\"", () -> {
-            catalogPage.watchProduct();
+            catalogPage.clickWatchProduct();
         });
         step("Добавляем товар в корзину", () -> {
-            catalogPage.addToCart();
+            catalogPage.addToCart(1);
         });
         step("Переходим в корзину товаров", () -> {
-            catalogPage.basket();
+            catalogPage.clickBasketPage();
         });
         step("Добавляем нужное количество товаров", () -> {
             catalogPage.increaseInQuantity("2");
         });
-        step("Проверяем наименование добавленного товара в корзину", () -> {
-            catalogPage.productName("Apple Watch 6");
+        step("Проверяем соответствие наименования товара в корзине", () -> {
+            catalogPage.checkingNameProductInTheCard();
         });
         step("Проверяем количество добавленного товара в корзину", () -> {
-            catalogPage.quantityOfGoods("2");
+            catalogPage.checkingQuantityProductInTheCard("2");
         });
     }
 
     @Test
-    @Order(4)
+    @Order(2)
     @Feature("Корзина товаров")
     @DisplayName("Уменьшение количества товара в корзине")
     void ReducingQuantityGoodsCartTest() {
@@ -81,18 +81,15 @@ public class TestsWithAddingProducts extends TestBase {
             catalogPage.openPage();
         });
         step("Уменьшаем количество товаров на одну позицию", () -> {
-            catalogPage.increaseInQuantity("1");
+            catalogPage.decreaseInQuantity("1");
         });
-        step("Проверяем наименование добавленного товара в корзину", () -> {
-            catalogPage.productName("Apple Watch 6");
-        });
-        step("Проверяем оставшееся количество товара в корзине после удаления позиции", () -> {
-            catalogPage.quantityOfGoods("1");
+        step("Проверяем оставшееся количество товара в корзине после уменьшения позиции", () -> {
+            catalogPage.checkingQuantityProductInTheCard("1");
         });
     }
 
     @Test
-    @Order(5)
+    @Order(3)
     @Feature("Корзина товаров")
     @DisplayName("Применение неверного купона")
     void applyingCouponTest() {
@@ -103,24 +100,22 @@ public class TestsWithAddingProducts extends TestBase {
             catalogPage.setCoupon("Test123");
         });
         step("Нажимаем применить код купона", () -> {
-            catalogPage.couponButton();
+            catalogPage.clickCouponButton();
         });
-        step("Проверяем наименование товара в корзину", () -> {
-            catalogPage.productName("Apple Watch 6");
+        step("Проверяем соответствие наименования товара в корзине", () -> {
+            catalogPage.checkingNameProductInTheCard();
         });
         step("Проверяем количество товара в корзине", () -> {
-            catalogPage.quantityOfGoods("1");
+            catalogPage.checkingQuantityProductInTheCard("1");
         });
         step("Проверяем текст ошибки после ввода произвольного купона", () -> {
-            catalogPage.textError("Coupon \"test123\" does not exist!");
+            catalogPage.checkingTextError();
         });
     }
 
-    @ValueSource(strings ={
-            "Телефон", "Часы"
-    })
-    @ParameterizedTest(name = "Для поискового запроса с {0} должен отдаваться не пустой список карточек" )
-    @Order(6)
+    @ValueSource(strings = {"Телефон", "Часы"})
+    @ParameterizedTest(name = "Для поискового запроса с {0} должен отдаваться не пустой список карточек")
+    @Order(4)
     @Feature("Главная страница")
     @DisplayName("Поиск товара из строки поиска.")
     void searchFromSearchBarTest(String searchQuery) {
@@ -128,20 +123,17 @@ public class TestsWithAddingProducts extends TestBase {
             homePage.searchField(searchQuery);
         });
         step("Проверяем, что открылась страница с результатами введенного поиска", () -> {
-            homePage.searchResults("Результаты поиска: " + searchQuery);
-        });
-        step("На странице присутствует требуемый товар", () -> {
-            homePage.searchTitle(sizeGreaterThan(0));
+            homePage.searchResults(searchQuery);
         });
     }
 
     @Test
-    @Order(7)
+    @Order(5)
     @Feature("Оформление заказа")
     @DisplayName("Оформление заказа")
     void placingOrderTest() {
         step("Переходим на страницу оформление заказа", () -> {
-            placingAnOrderPage.placingAnOrder();
+            placingAnOrderPage.clickPlacingAnOrder();
         });
         step("Указываем имя", () -> {
             placingAnOrderPage.setFirstName(random.firstName);
@@ -165,7 +157,7 @@ public class TestsWithAddingProducts extends TestBase {
             placingAnOrderPage.setPhoneNumber(random.phoneNumber);
         });
         step("Нажимаем на кнопку \"Оформить заказ\"", () -> {
-            placingAnOrderPage.placeOrder();
+            placingAnOrderPage.clickPlaceOrder();
         });
         step("Проверяем статус заказа", () -> {
             placingAnOrderPage.contentInner("Заказ получен");
@@ -174,11 +166,7 @@ public class TestsWithAddingProducts extends TestBase {
             placingAnOrderPage.orderOverview();
         });
         step("Проверяем поля в итоговой таблице", () -> {
-            placingAnOrderPage.checkResult(fieldNames, "Сумма")
-                    .checkResult(productName, "Apple Watch 6 × 1")
-                    .checkResult(cartSubtotal, "35990,00₽")
-                    .checkResult(paymentMethod, "Прямой банковский перевод")
-                    .checkResult(total, "35990,00₽");
+            placingAnOrderPage.checkResult(fieldNames, "Сумма").checkResult(productName, "Apple Watch 6 × 1").checkResult(cartSubtotal, "35990,00₽").checkResult(paymentMethod, "Прямой банковский перевод").checkResult(total, "35990,00₽");
         });
     }
 

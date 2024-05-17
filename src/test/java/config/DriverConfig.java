@@ -1,10 +1,9 @@
 package config;
 
 import org.aeonbits.owner.Config;
+
 @Config.LoadPolicy(Config.LoadType.MERGE)
-@Config.Sources({
-        "classpath:config/remote.properties"
-})
+@Config.Sources({"classpath:config/remote.properties"})
 public interface DriverConfig extends Config {
     @Key("browserName")
     @DefaultValue("chrome")
@@ -17,6 +16,7 @@ public interface DriverConfig extends Config {
     @Key("browserSize")
     @DefaultValue("1920x1080")
     String browserSize();
+
     @Key("browserRemoteUrl")
     String browserRemoteUrl();
 

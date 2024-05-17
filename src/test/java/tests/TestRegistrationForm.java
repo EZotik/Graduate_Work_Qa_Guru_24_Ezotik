@@ -6,21 +6,20 @@ import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
 import pages.MyAccount;
 import pages.RegistrationPage;
-import utils.RandomUtils;
+import utils.RandomUserDataGenerator;
 
 import static io.qameta.allure.Allure.step;
 
 @Tag("simple_test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Тесты на регистрацию/авторизацию пользователя")
-public class TestRegistrationForm extends TestBase{
+public class TestRegistrationForm extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     MyAccount myAccount = new MyAccount();
-    RandomUtils random = new RandomUtils();
+    RandomUserDataGenerator random = new RandomUserDataGenerator();
     CredentialConfig credentialConfig = ConfigFactory.create(CredentialConfig.class);
 
     @Test
-    @Order(1)
     @Feature("Форма регистрации")
     @DisplayName("Регистрация нового пользователя")
     void newUserRegistrationTest() {
@@ -46,12 +45,11 @@ public class TestRegistrationForm extends TestBase{
             registrationPage.postTitle("Регистрация");
         });
         step("В форме о завершении регистрации присутствует информационное сообщение", () -> {
-            registrationPage.contentPage("Регистрация завершена");
+            registrationPage.checkingContentPage("Регистрация завершена");
         });
     }
 
     @Test
-    @Order(2)
     @Feature("Форма авторизации")
     @DisplayName("Вход в аккаунт под зарегистрированным пользователем")
     void loginToAccountTest() {
@@ -65,16 +63,16 @@ public class TestRegistrationForm extends TestBase{
             myAccount.setPassword(credentialConfig.loginPassword());
         });
         step("Кликаем на кнопку войти", () -> {
-            myAccount.login();
+            myAccount.clickLoginBtton();
         });
         step("Проверяем, что появилось окно с информацией о входе в личный кабинет", () -> {
-            myAccount.entryContent();
+            myAccount.checkingEntryContent();
         });
-        step("В личном кабинете  присутствует заголовок", () -> {
-            myAccount.postTitle("Мой аккаунт");
+        step("В личном кабинете присутствует заголовок", () -> {
+            myAccount.checkingPostTitle();
         });
         step("В личном кабинете  присутствует наименование пользователя", () -> {
-            myAccount.loginName(credentialConfig.loginUserName());
+            myAccount.checkingLoginName("Test1239");
         });
     }
 }

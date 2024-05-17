@@ -7,7 +7,7 @@ import org.aeonbits.owner.Config;
         "system:properties",
         "classpath:config/credential.properties"
 })
-public interface CredentialConfig extends Config{
+public interface CredentialConfig extends Config {
     @Key("name.userName")
     String loginUserName();
 

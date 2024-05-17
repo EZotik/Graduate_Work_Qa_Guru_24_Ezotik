@@ -18,7 +18,7 @@ public class TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
-    static void beforeAll(){
+    static void beforeAll() {
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
         Configuration.browser = driverConfig.browserName();
         Configuration.browserVersion = driverConfig.browserVersion();
@@ -38,8 +38,8 @@ public class TestBase {
     }
 
     @AfterEach
-    public void logOut(){
-        registrationPage.logout();
+    public void logOut() {
+        registrationPage.clickLogout();
     }
 
     @AfterEach

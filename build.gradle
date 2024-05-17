@@ -6,15 +6,21 @@ plugins {
 group = 'qa.qury'
 version = '1.0-SNAPSHOT'
 
+def selenideVersion = "6.19.1",
+    javaFakerVersion = "1.0.2",
+    allureVersion = "2.25.0",
+    junitVersion = "5.10.1",
+    ownerVersion = "1.0.12"
+
 allure{
     report {
-        version.set('2.25.0')
+        version.set(allureVersion)
     }
-    adapter { //отвечает за появление папки allure-results
-        aspectjWeaver.set(true) //обработка аннотации @Step
+    adapter {
+        aspectjWeaver.set(true)
         frameworks {
-            junit5 { //название фрэймворка
-                adapterVersion.set('2.25.0') //версия интеграции фрэймворка и Allure
+            junit5 {
+                adapterVersion.set(allureVersion)
             }
         }
     }
@@ -32,11 +38,11 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 dependencies {
-    testImplementation("com.github.javafaker:javafaker:1.0.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
-    testImplementation("com.codeborne:selenide:6.19.1")
-    testImplementation 'io.qameta.allure:allure-selenide:2.25.0'
-    testImplementation 'org.aeonbits.owner:owner:1.0.12'
+    testImplementation("com.github.javafaker:javafaker:$javaFakerVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("com.codeborne:selenide:$selenideVersion")
+    testImplementation "io.qameta.allure:allure-selenide:$allureVersion"
+    testImplementation "org.aeonbits.owner:owner:$ownerVersion"
 }
 
 tasks.withType(Test) {

@@ -5,7 +5,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ResultComponent {
-    public void checkResult(String key, String value){
+    public void checkResult(String key, String value) {
         $(".woocommerce-table").$(byText(key)).parent()
                 .shouldHave(text(value));
     }

@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -11,54 +13,70 @@ public class CatalogPage {
             addToCart = $("a[href='?add-to-cart=15']"),
             basket = $("#menu-item-29"),
             productName = $(".product-name[data-title='Товар']"),
-            quantityOfGoods =$("input[type='number']"),
+            quantityOfGoods = $("input[type='number']"),
             coupon = $("#coupon_code"),
             couponButton = $(".button[value='Применить купон']"),
-            textError= $("ul.woocommerce-error li");
+            textError = $("ul.woocommerce-error li");
 
-    public CatalogPage catalog() {
+    public CatalogPage clickCatalogPage() {
         catalog.click();
         return this;
     }
-    public CatalogPage watchProduct() {
+
+    public CatalogPage clickWatchProduct() {
         watchProduct.click();
         return this;
     }
-    public CatalogPage addToCart() {
-        addToCart.click();
+
+    public CatalogPage addToCart(int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            addToCart.click();
+        }
         return this;
     }
-    public CatalogPage basket() {
+
+    public CatalogPage clickBasketPage() {
         basket.click();
         return this;
     }
-    public CatalogPage increaseInQuantity(String value){
+
+    public CatalogPage increaseInQuantity(String value) {
         quantityOfGoods.setValue(value);
         return this;
     }
-    public CatalogPage productName(String text){
-        productName.shouldHave();
+
+    public CatalogPage decreaseInQuantity(String value) {
+        quantityOfGoods.setValue(value);
         return this;
     }
-    public CatalogPage quantityOfGoods(String value){
-        quantityOfGoods.shouldHave();
+
+    public CatalogPage checkingNameProductInTheCard() {
+        productName.shouldHave(text("Apple Watch 6"));
         return this;
     }
+
+    public CatalogPage checkingQuantityProductInTheCard(String quantityValue) {
+        quantityOfGoods.shouldHave(value(quantityValue));
+        return this;
+    }
+
     public CatalogPage openPage() {
         open("/cart/");
         return this;
     }
-    public CatalogPage setCoupon(String value){
+
+    public CatalogPage setCoupon(String value) {
         coupon.setValue(value);
         return this;
     }
 
-    public CatalogPage couponButton() {
+    public CatalogPage clickCouponButton() {
         couponButton.click();
         return this;
     }
-    public CatalogPage textError(String value){
-        textError.shouldHave();
+
+    public CatalogPage checkingTextError() {
+        textError.shouldHave(text("Coupon \"test123\" does not exist!"));
         return this;
     }
 }
