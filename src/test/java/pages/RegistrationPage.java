@@ -48,7 +48,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage postTitle(String text) {
-        postTitle.shouldHave();
+        postTitle.shouldHave(text(text));
         return this;
     }
 
