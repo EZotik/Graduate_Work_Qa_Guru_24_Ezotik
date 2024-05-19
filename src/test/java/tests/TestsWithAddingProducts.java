@@ -8,8 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
 import utils.RandomUserDataGenerator;
-
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static io.qameta.allure.Allure.step;
 
 @Tag("simple_test")
